@@ -27,7 +27,6 @@ from rclpy.lifecycle import LifecycleNode
 from rclpy.lifecycle import TransitionCallbackReturn
 from rclpy.lifecycle import LifecycleState
 
-import torch
 from ultralytics import YOLO, NAS, YOLOWorld
 from ultralytics.engine.results import Results
 from ultralytics.engine.results import Boxes
@@ -158,6 +157,7 @@ class YoloNode(LifecycleNode):
     def on_deactivate(self, state: LifecycleState) -> TransitionCallbackReturn:
         self.get_logger().info(f"[{self.get_name()}] Deactivating...")
 
+        import torch
         del self.yolo
         if "cuda" in self.device:
             self.get_logger().info("Clearing CUDA cache")
